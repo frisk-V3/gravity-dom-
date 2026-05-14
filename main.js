@@ -14,6 +14,8 @@
 			y: 0
 		},
 		isVac = false;
+
+	// 右クリックメニューの無効化とマウスボタン制御
 	window.addEventListener("contextmenu", e => e.preventDefault());
 	window.addEventListener("mousedown", e => {
 		if (e.button === 2) isVac = true;
@@ -21,6 +23,12 @@
 	window.addEventListener("mouseup", e => {
 		if (e.button === 2) isVac = false;
 	});
+
+	// 【追加】ページ内のすべてのリンククリックを無効化（他URLへの遷移を防止）
+	document.querySelectorAll("a").forEach(link => {
+		link.addEventListener("click", e => e.preventDefault());
+	});
+
 	const tags = ['h1', 'h2', 'h3', 'p', 'a', 'span', 'button', 'li'];
 	tags.forEach(t => {
 		document.querySelectorAll(t).forEach(el => {
@@ -36,6 +44,7 @@
 			})
 		})
 	});
+
 	document.querySelectorAll("body *").forEach(t => {
 		if (t.children.length > 0 || t.offsetWidth < 2) return;
 		const r = t.getBoundingClientRect();
@@ -69,6 +78,7 @@
 		});
 		e.push(o)
 	});
+
 	window.addEventListener("mousemove", e => {
 		v = {
 			x: e.clientX - l.x,
@@ -83,6 +93,7 @@
 			a.y = e.clientY - a.h / 2
 		}
 	});
+
 	window.addEventListener("mouseup", () => {
 		if (a) {
 			a.isDragging = !1;
@@ -91,6 +102,7 @@
 			a = null
 		}
 	});
+
 	(function u() {
 		const w = window.innerWidth,
 			h = window.innerHeight;
